@@ -9,22 +9,19 @@
     <div class="">
         <form method="POST">
             {% csrf_token %}
-
-            <div class="input-group input-group-lg mb-3">    
-                <span class="input-group-text" id="Date">Tarih</span>          
-                <input type="date" class="form-control" aria-describedby="Date" name="date">
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{error}}
+                </div>
+            {% endif %}
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="User">Kullanıcı Adı</span>          
+                <input type="text" class="form-control" name="username" aria-describedby="User">
             </div>
-            <div class="input-group input-group-lg mb-3">       
-                <span class="input-group-text" id="Model">Model</span>               
-                <input type="text" class="form-control" name="model">
-            </div>
-            <div class="input-group input-group-lg mb-3">      
-                <span class="input-group-text" id="Chassis">Şasi No.</span>                    
-                <input type="text" class="form-control" name="chassis">
-            </div>
+            
             <div class="input-group input-group-lg mb-3">
                 <span class="input-group-text" id="Pass">Parola</span>          
-                <input type="password" class="form-control" aria-describedby="Pass">
+                <input type="password" class="form-control" name="password" aria-describedby="Pass">
             </div>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-lg btn-outline-info" type="submit" >Giriş</button>

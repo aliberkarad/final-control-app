@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-lg d-grid gap-2 col-12 mt-3"">
+    <form method="POST">
+    {% csrf_token %}
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h1>Özellikler</h1>
+            <div>
+                <a class="btn btn-outline-danger" href="{% url 'exit' %}" >Exit</a>
+            </div>
+        </div>    
+
+        <div class="input-group input-group mb-3">       
+            <span class="input-group-text">Tarih</span>               
+            <input type="date" class="form-control" value="" name="date" required>
+        </div>
+        <div class="input-group input-group mb-3">       
+            <span class="input-group-text" >Model</span>               
+            <select class="form-select" name="model" required>
+                <option selected value="">Seçiniz...</option>
+                <option value="AYAZ SMART">Ayaz Smart</option>
+                <option value="AYAZ COMFORT">Ayaz Comfort</option>
+                <option value="AYAZ PREMIUM">Ayaz Premium</option>
+                <option value="AYAZ OFFROAD SMART">Ayaz OffRoad Smart</option>
+                <option value="AYAZ OFFROAD COMFORT">Ayaz OffRoad Comfort</option>
+                <option value="AYAZ OFFROAD PREMIUM">Ayaz OffRoad Premium</option>
+                <option value="ARKUT SMART">Arkut Smart</option>
+                <option value="ARKUT COMFORT">Arkut Comfort</option>
+                <option value="ARKUT PREMIUM">Arkut Premium</option>
+                <option value="ALADA PREMIUM">Alada Premium</option>
+                <option value="GREDIA PREMIUM">Gredia Premium</option>
+            </select>
+        </div>
+        <div class="input-group input-group mb-3">       
+            <span class="input-group-text" >Şasi No.</span>               
+            <input type="text" class="form-control" placeholder="NR95K110X1P324XXX" name="chassis" minlength="17" maxlength="17" required>
+        </div>
+        <div class="d-grid gap-2 col-3 mx-auto">
+            <button class="btn btn-outline-success" type="submit" >Başla</button>
+        </div>
+    </form>
+
+    <div class="mt-3">
+        <h2 class="mb-3">Tüm İşlemler</h2>
+        
+        <div class="accordion" id="accordionFlush">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Şasi #1
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+                <div class="accordion-body">
+                    Body
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Şasi #2
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+                <div class="accordion-body">
+                    Body
+                </div>
+              </div>
+            </div>
+
+        </div>   
+
+    </div>
+
+</div>
+{% endblock %}

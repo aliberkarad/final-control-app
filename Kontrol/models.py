@@ -29,6 +29,15 @@ class KontrolClass(models.Model):
         ('GEÇTİ','GEÇTİ'),
     )
 
+
+
+
+
+
+
+
+
+
     class Meta:
         verbose_name = 'Kontrol'
         verbose_name_plural = 'Kontroller'
