@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-sm mt-5">
+    <div class="mb-5 mx-auto text-center">
+        <img class="d-inline" style="max-width:10rem;" src="/static/img/5K.svg" alt="Logo">
+    </div>
+    <div class="">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-group input-group-lg mb-3">    
+                <span class="input-group-text" id="Date">Tarih</span>          
+                <input type="date" class="form-control" aria-describedby="Date" name="date">
+            </div>
+            <div class="input-group input-group-lg mb-3">       
+                <span class="input-group-text" id="Model">Model</span>               
+                <input type="text" class="form-control" name="model">
+            </div>
+            <div class="input-group input-group-lg mb-3">      
+                <span class="input-group-text" id="Chassis">Şasi No.</span>                    
+                <input type="text" class="form-control" name="chassis">
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="Pass">Parola</span>          
+                <input type="password" class="form-control" aria-describedby="Pass">
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-lg btn-outline-secondary" type="submit" >Giriş</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

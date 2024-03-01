@@ -3,19 +3,23 @@
 
 {% block content %}
 
-    <table border="1">
-        <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            <th>Column 3</th>
-        </tr>
-        {% for obj in my_objects %}
-        <tr>
-            <td>{{ obj.column1 }}</td>
-            <td>{{ obj.column2 }}</td>
-            <td>{{ obj.column3 }}</td>
-        </tr>
-        {% endfor %}
+<div class="d-flex mx-2">
+    <table class="table table-bordered table-responsive table-striped table-hover ">
+        <thead>
+            <th>No.</th>
+            <th>Kontrol Bölümleri</th>
+            <th>GEÇTİ</th>
+            <th>KALDI</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>D</td>
+            </tr>
+        </tbody>
     </table>
+</div>
 
 {% endblock %}
