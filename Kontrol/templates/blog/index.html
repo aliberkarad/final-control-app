@@ -3,23 +3,83 @@
 
 {% block content %}
 
-<div class="d-flex mx-2">
-    <table class="table table-bordered table-responsive table-striped table-hover ">
-        <thead>
-            <th>No.</th>
-            <th>Kontrol Bölümleri</th>
-            <th>GEÇTİ</th>
-            <th>KALDI</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>A</td>
-                <td>B</td>
-                <td>C</td>
-                <td>D</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container-sm d-grid gap-2 col-6 mt-3">
+    <h1>Kontrol Bölümleri</h1>
+    <form method="POST">
+        {% csrf_token %}
+    </form>
 </div>
+<!--
+<div class="container-sm d-grid gap-2 col-6 mt-3">
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-bordered table-responsive table-striped table-hover ">
+            <thead>
+                <th>Kontrol Bölümleri</th>
+            </thead>
+            <tbody>
+                <tr data-toggle="collapse" data-target="#accordion1" aria-expanded="false" aria-controls="accordion1">
+                  <td>Alt Bölüm</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="p-0">
+                    <div id="accordion1" class="collapse" data-parent=".table">
+                      <table class="table mb-0">
+                        <thead>
+                          <tr>
+                            <th scope="col">Kontrol</th>
+                            <th scope="col">Durum</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Değer 1</td>
+                            <td>
+                                <select class="form-select form-select-sm" name="1.1">
+                                    <option value="GEÇTİ">GEÇTİ</option>
+                                    <option value="KALDI">KALDI</option>
+                                </select>
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
 
+                <tr data-toggle="collapse" data-target="#accordion2" aria-expanded="false" aria-controls="accordion2">
+                  <td>Alt Bölüm</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="p-0">
+                    <div id="accordion2" class="collapse" data-parent=".table">
+                      <table class="table mb-0">
+                        <thead>
+                          <tr>
+                            <th scope="col">Kontrol</th>
+                            <th scope="col">Durum</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Değer 1</td>
+                            <td>
+                                <select class="form-select form-select-sm" name="1.1">
+                                    <option value="GEÇTİ">GEÇTİ</option>
+                                    <option value="KALDI">KALDI</option>
+                                </select>
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+
+                
+              </tbody>
+        </table>
+    </form>
+</div>
+-->
 {% endblock %}
