@@ -24,23 +24,38 @@ class KontrolClass(models.Model):
     )
     model = models.CharField(max_length=100,default="---",choices=caravan_models,verbose_name="Model")
 
-    durum_bilgisi =(
-        ('KALDI','KALDI'),
-        ('GEÇTİ','GEÇTİ'),
-    )
-
-
-
-
-
-
-
-
-
-
     class Meta:
         verbose_name = 'Kontrol'
         verbose_name_plural = 'Kontroller'
 
     def __str__(self):
-        return f"{self.date} - {self.model} - {self.chassis}"
+        return f"{self.chassis} - {self.model} - {self.date}"
+    
+
+class AyazIsler(models.Model):
+    is_bilgisi = models.CharField(max_length=400,verbose_name='İş Bilgisi')
+    karavanlar = models.ManyToManyField(KontrolClass , through='KaravanIs')
+
+    class Meta:
+        verbose_name = 'Ayaz İş'
+        verbose_name_plural = 'Ayaz İşler'
+
+    def __str__(self):
+        return f"{self.is_bilgisi}"
+
+class KaravanIs(models.Model):
+    durum_bilgisi =(
+        ('KALDI','KALDI'),
+        ('GEÇTİ','GEÇTİ'),
+    )
+    karavan = models.ForeignKey(KontrolClass, on_delete=models.CASCADE,verbose_name="Karavan")
+    is_bilgisi = models.ForeignKey(AyazIsler, on_delete=models.CASCADE,verbose_name="İş Bilgisi")
+    tamamlandi_mi = models.CharField(max_length=20,default='KALDI',choices=durum_bilgisi,verbose_name='Durum')
+
+    class Meta:
+        unique_together = (('karavan', 'is_bilgisi'),)
+        verbose_name = 'Karavan-İş'
+        verbose_name_plural = 'Karavan-İş Tümü'
+    
+    def __str__(self):
+        return f"{self.karavan} - {self.is_bilgisi}"

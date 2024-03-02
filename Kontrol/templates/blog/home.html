@@ -48,7 +48,7 @@
         
         <div class="accordion" id="accordionFlush">
             {% for ayaz in ayazlar %}
-                <div class="accordion-item">
+                <div class="accordion-item" id="{{ayaz.chassis}}_Print">
                     <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ayaz.chassis}}" aria-expanded="false" aria-controls="{{ayaz.chassis}}">
                         {{ayaz.chassis}} - {{ayaz.model}}
@@ -56,56 +56,50 @@
                     </h2>
                     <div id="{{ayaz.chassis}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
                       <div class="accordion-body">
-                        --
+                        <ul>
+                            {% for chassis,is_bilgisi in ayaz_ve_isleri.items %}
+                                {% if chassis == ayaz.chassis %}
+                                    {% for is in is_bilgisi %}
+                                        <li>{{ is.0 }} -- {{ is.1 }}</li>   
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <button id="{{ayaz.chassis}}_Printer" type="button" class="btn btn-primary" onclick="printDiv('{{ayaz.chassis}}_Print')">Yazdır</button>
                       </div>
                     </div>
                 </div>
             {% endfor %}    
-            {% for arkut in arkutlar %}
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{arkut.chassis}}" aria-expanded="false" aria-controls="{{arkut.chassis}}">
-                        {{arkut.chassis}} - {{arkut.model}}
-                      </button>
-                    </h2>
-                    <div id="{{arkut.chassis}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-                      <div class="accordion-body">
-                        --
-                      </div>
-                    </div>
-                </div>
-            {% endfor %}    
-            {% for alada in aladalar %}
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{alada.chassis}}" aria-expanded="false" aria-controls="{{alada.chassis}}">
-                        {{alada.chassis}} - {{alada.model}}
-                      </button>
-                    </h2>
-                    <div id="{{alada.chassis}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-                      <div class="accordion-body">
-                        --
-                      </div>
-                    </div>
-                </div>
-            {% endfor %}    
-            {% for gredia in gredialar %}
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{gredia.chassis}}" aria-expanded="false" aria-controls="{{gredia.chassis}}">
-                        {{gredia.chassis}} - {{gredia.model}}
-                      </button>
-                    </h2>
-                    <div id="{{gredia.chassis}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-                      <div class="accordion-body">
-                        --
-                      </div>
-                    </div>
-                </div>
-            {% endfor %}    
+
+            
         </div>   
 
     </div>
 
 </div>
 {% endblock %}
+{% block js %}
+<script>
+function printDiv(divName) {
+    // Orjinali sakla
+    var originalContents = document.body.innerHTML;
+    
+    // buttonu sil
+    var printButton = document.getElementById(divName+'er');
+    printButton.parentNode.removeChild(printButton);
+
+    // Div içeriğini al
+    var printContents = document.getElementById(divName).innerHTML;
+
+    // Sayfanın içeriğini değiştir
+    document.body.innerHTML = printContents;
+
+    // Yazdır
+    window.print();
+
+    // Geri getir
+    document.body.innerHTML = originalContents;    
+
+}
+</script>
+{% endblock  %}
