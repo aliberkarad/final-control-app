@@ -34,7 +34,8 @@ class KontrolClass(models.Model):
 
 class AyazIsler(models.Model):
     is_bilgisi = models.CharField(max_length=400,verbose_name='İş Bilgisi')
-    karavanlar = models.ManyToManyField(KontrolClass , through='KaravanIs')
+    karavanlar = models.ManyToManyField(KontrolClass,through='KaravanIs')
+    bolum = models.CharField(max_length=20,blank=False,verbose_name="Kısım")
 
     class Meta:
         verbose_name = 'Ayaz İş'

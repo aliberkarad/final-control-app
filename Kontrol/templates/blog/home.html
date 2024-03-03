@@ -15,7 +15,7 @@
 
         <div class="input-group input-group mb-3">       
             <span class="input-group-text">Tarih</span>               
-            <input type="date" class="form-control" value="" name="date" required>
+            <input type="datetime-local" class="form-control" name="date" required>
         </div>
         <div class="input-group input-group mb-3">       
             <span class="input-group-text" >Model</span>               
@@ -43,18 +43,18 @@
         </div>
     </form>
 
-    <div class="mt-3">
+    <div class="mt-3 mb-3">
         <h2 class="mb-3">Tüm İşlemler</h2>
         
-        <div class="accordion" id="accordionFlush">
-            {% for ayaz in ayazlar %}
+        <div class="accordion accordion-flush" id="accordionT">
+            {% for ayaz in ayazlar reversed %}
                 <div class="accordion-item" id="{{ayaz.chassis}}_Print">
                     <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ayaz.chassis}}" aria-expanded="false" aria-controls="{{ayaz.chassis}}">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{ayaz.chassis}}" aria-expanded="false" aria-controls="flush-{{ayaz.chassis}}">
                         {{ayaz.chassis}} - {{ayaz.model}}
                       </button>
                     </h2>
-                    <div id="{{ayaz.chassis}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
+                    <div id="flush-{{ayaz.chassis}}" class="accordion-collapse collapse" data-bs-parent="#accordionT">
                       <div class="accordion-body">
                         <ul>
                             {% for chassis,is_bilgisi in ayaz_ve_isleri.items %}
@@ -65,7 +65,7 @@
                                 {% endif %}
                             {% endfor %}
                         </ul>
-                        <button id="{{ayaz.chassis}}_Printer" type="button" class="btn btn-primary" onclick="printDiv('{{ayaz.chassis}}_Print')">Yazdır</button>
+                        <button id="flush-{{ayaz.chassis}}_Printer" type="button" class="btn btn-primary" onclick="printDiv('flush-{{ayaz.chassis}}_Print')">Yazdır</button>
                       </div>
                     </div>
                 </div>
