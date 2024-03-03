@@ -48,7 +48,7 @@
         
         <div class="accordion accordion-flush" id="accordionT">
             {% for ayaz in ayazlar reversed %}
-                <div class="accordion-item" id="{{ayaz.chassis}}_Print">
+                <div class="accordion-item" id="flush-{{ayaz.chassis}}_Print">
                     <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-{{ayaz.chassis}}" aria-expanded="false" aria-controls="flush-{{ayaz.chassis}}">
                         {{ayaz.chassis}} - {{ayaz.model}}

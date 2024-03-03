@@ -26,20 +26,46 @@ class KontrolClass(models.Model):
 
     class Meta:
         verbose_name = 'Kontrol'
-        verbose_name_plural = 'Kontroller'
+        verbose_name_plural = '1-Kontroller'
 
     def __str__(self):
-        return f"{self.chassis} - {self.model} - {self.date}"
+        return f"{self.chassis} - {self.model}"
     
 
 class AyazIsler(models.Model):
     is_bilgisi = models.CharField(max_length=400,verbose_name='İş Bilgisi')
     karavanlar = models.ManyToManyField(KontrolClass,through='KaravanIs')
-    bolum = models.CharField(max_length=20,blank=False,verbose_name="Kısım")
+
+    bolumler = (
+        ('ELEKTRİK - SOL ÖN DOLAP','ELEKTRİK - SOL ÖN DOLAP'),
+        ('MOBİLYA - SOL ÖN DOLAP','MOBİLYA - SOL ÖN DOLAP'),
+        ('MONTAJ - SOL ÖN DOLAP','MONTAJ - SOL ÖN DOLAP'),
+        ('ELEKTRİK - SAĞ ÖN DOLAP','ELEKTRİK - SAĞ ÖN DOLAP'),
+        ('MOBİLYA - SAĞ ÖN DOLAP','MOBİLYA - SAĞ ÖN DOLAP'),
+        ('MONTAJ - SAĞ ÖN DOLAP','MONTAJ - SAĞ ÖN DOLAP'),
+        ('MONTAJ - SAĞ KAPI','MONTAJ - SAĞ KAPI'),
+        ('MOBİLYA - MUTFAK','MOBİLYA - MUTFAK'),
+        ('OFFROAD İÇİN EK DOLAP','OFFROAD İÇİN EK DOLAP'),
+        ('OFFROAD İÇİN SU DEPO KAPAĞI','OFFROAD İÇİN SU DEPO KAPAĞI'),
+        ('AYAZ İÇİN SU DEPO KAPAKLARI','AYAZ İÇİN SU DEPO KAPAKLARI'),
+        ('ELEKTRİK - MUTFAK','ELEKTRİK - MUTFAK'),
+        ('MONTAJ - BAGAJ','MONTAJ - BAGAJ'),
+        ('MONTAJ - SOL KAPI','MONTAJ - SOL KAPI'),
+        ('MOBİLYA - YAŞAM ALANI','MOBİLYA - YAŞAM ALANI'),
+        ('MONTAJ - YAŞAM ALANI','MONTAJ - YAŞAM ALANI'),
+        ('ELEKTRİK - YAŞAM ALANI','ELEKTRİK - YAŞAM ALANI'),
+        ('DÖŞEME','DÖŞEME'),
+        ('ELEKTRİK - DIŞ AKSAM','ELEKTRİK - DIŞ AKSAM'),
+        ('MONTAJ - DIŞ  AKSAM','MONTAJ - DIŞ  AKSAM'),
+        ('DIŞ BOYA','DIŞ BOYA'),
+    )
+
+    bolum = models.CharField(max_length=50,choices=bolumler,blank=False,verbose_name="Kısım")
 
     class Meta:
         verbose_name = 'Ayaz İş'
-        verbose_name_plural = 'Ayaz İşler'
+        verbose_name_plural = '2-Ayaz İşler'
+        ordering = ['id']
 
     def __str__(self):
         return f"{self.is_bilgisi}"
@@ -55,8 +81,8 @@ class KaravanIs(models.Model):
 
     class Meta:
         unique_together = (('karavan', 'is_bilgisi'),)
-        verbose_name = 'Karavan-İş'
-        verbose_name_plural = 'Karavan-İş Tümü'
+        verbose_name = 'Şasi-İş'
+        verbose_name_plural = '3-Şasi-İş'
     
     def __str__(self):
         return f"{self.karavan} - {self.is_bilgisi}"
