@@ -68,7 +68,7 @@ class AyazIsler(models.Model):
         ordering = ['id']
 
     def __str__(self):
-        return f"{self.is_bilgisi}"
+        return f"{self.is_bilgisi} - {self.bolum}"
 
 class KaravanIs(models.Model):
     durum_bilgisi =(

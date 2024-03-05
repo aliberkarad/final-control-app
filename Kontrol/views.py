@@ -105,9 +105,10 @@ def ayaz(request):
     if request.method == "GET":
         ayaz = KontrolClass.objects.latest('id')
         tum_isler = AyazIsler.objects.all()
-        tum_isler_bolum = set()
+        tum_isler_bolum = []
         for is_bilgisi in tum_isler:
-            tum_isler_bolum.add(is_bilgisi.bolum)
+            if is_bilgisi.bolum not in tum_isler_bolum:
+                tum_isler_bolum.append(is_bilgisi.bolum)
             KaravanIs.objects.create(karavan=ayaz,is_bilgisi=is_bilgisi)
 
     if request.method == "POST":

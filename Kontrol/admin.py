@@ -7,8 +7,10 @@ class AyazIslerAdmin(admin.ModelAdmin):
     list_filter = ('bolum',)
 
 class KaravanIsAdmin(admin.ModelAdmin):
-    list_display = ('karavan', 'is_bilgisi','tamamlandi_mi')
+    list_display = ('karavan', 'is_bilgisi','tamamlandi_mi',)
     list_filter = ('karavan',)
+    list_editable = ('tamamlandi_mi',)
+    search_fields = ('is_bilgisi__is_bilgisi',)
 
 class KontrolClassAdmin(admin.ModelAdmin):
     list_display = ('chassis', 'model','date')
