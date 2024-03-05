@@ -52,8 +52,8 @@ def home(request):
     ayaz_ve_isleri = {}
     # Her bir "AYAZ" modeli için işleri al ve sözlüğe ekle
     for ayaz in ayazlar:
-        #karavan_isleri = KaravanIs.objects.filter(karavan=ayaz,tamamlandi_mi="KALDI")  !!!
-        karavan_isleri = KaravanIs.objects.filter(karavan=ayaz)
+        karavan_isleri = KaravanIs.objects.filter(karavan=ayaz,tamamlandi_mi="KALDI")
+        #karavan_isleri = KaravanIs.objects.filter(karavan=ayaz)
         for karavan_is in karavan_isleri:
             is_bilgisi = karavan_is.is_bilgisi.is_bilgisi
             chassis = ayaz.chassis
