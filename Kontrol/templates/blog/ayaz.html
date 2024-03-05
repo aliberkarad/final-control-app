@@ -30,6 +30,7 @@
                                         <td>{{ item }}</td>
                                         <td>
                                             <select class="form-select form-select-sm" name="isler">
+                                                <option value="" selected>Seçiniz</option>
                                                 <option value="KALDI">KALDI</option>
                                                 <option value="GEÇTİ">GEÇTİ</option>
                                             </select>
@@ -51,3 +52,81 @@
 </div>
 
 {% endblock %}
+
+{% block js %}
+
+
+<script>
+    // Satırları seçme
+    var rows = document.querySelectorAll('tbody tr');
+
+    // Her bir satır için işlem yapma
+    rows.forEach(function(row) {
+        // Satırın içindeki select elementini bulma
+        var select = row.querySelector('.form-select');
+
+        // Select elementinin değişiklik olayını dinleme
+        select.addEventListener('change', function() {
+            // Seçilen değeri al
+            var selectedValue = this.value;
+
+            // Seçilen değere göre satırın arka plan rengini değiştirme
+            if (selectedValue === 'KALDI') {
+                row.style.backgroundColor = 'red';
+            } else if (selectedValue === 'GEÇTİ') {
+                row.style.backgroundColor = 'green';
+            }
+        });
+
+        // İlk yüklenme durumunda satırın rengini kontrol etme
+        var initialValue = select.value;
+        if (initialValue === 'KALDI') {
+            row.style.backgroundColor = 'red';
+        } else if (initialValue === 'GEÇTİ') {
+            row.style.backgroundColor = 'green';
+        }
+    });
+</script>
+
+<script>
+    // Satırları seçme
+    var rows = document.querySelectorAll('tbody tr');
+
+    // Form gönderilmeden önce kontrol fonksiyonu
+    function validateForm() {
+        var isValid = true;
+
+        // Her bir satır için işlem yapma
+        rows.forEach(function(row) {
+            // Satırın içindeki select elementini bulma
+            var select = row.querySelector('.form-select');
+
+            // Seçilen değeri al
+            var selectedValue = select.value;
+
+            // Boş değer kontrolü
+            if (selectedValue === '') {
+                isValid = false;
+                alert('Lütfen tüm seçenekleri doldurunuz.');
+                return; // Hemen döngüden çık
+            }
+        });
+
+        return isValid;
+    }
+
+    // Form gönderme olayını dinleme
+    var form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        // Formu doğrulama
+        var isValidForm = validateForm();
+
+        // Formun gönderilmesini engelleme
+        if (!isValidForm) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+
+{% endblock  %}
