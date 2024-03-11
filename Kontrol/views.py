@@ -56,6 +56,8 @@ def home(request):
         #karavan_isleri = KaravanIs.objects.filter(karavan=ayaz)
         for karavan_is in karavan_isleri:
             is_bilgisi = karavan_is.is_bilgisi.is_bilgisi
+            is_bolumu = karavan_is.is_bilgisi.bolum
+            is_bilgisi = is_bolumu + " - " + is_bilgisi
             chassis = ayaz.chassis
             tamamlandi_mi = karavan_is.tamamlandi_mi  # tamamlandi_mi alanına erişim
             # Sözlüğe ekleme

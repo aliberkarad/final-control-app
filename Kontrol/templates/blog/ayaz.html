@@ -96,7 +96,7 @@
 
     // Form gönderilmeden önce kontrol fonksiyonu
     function validateForm() {
-        var isValid = true;
+        var emptyRows = 0; // Boş satır sayısını saklamak için değişken
 
         // Her bir satır için işlem yapma
         rows.forEach(function(row) {
@@ -108,13 +108,17 @@
 
             // Boş değer kontrolü
             if (selectedValue === '') {
-                isValid = false;
-                alert('Lütfen tüm seçenekleri doldurunuz.');
-                return; // Hemen döngüden çık
+                emptyRows++; // Boş satır sayısını arttır
             }
         });
 
-        return isValid;
+        // Eğer en az bir boş satır varsa alert göster
+        if (emptyRows > 0) {
+            alert('Lütfen tüm seçenekleri doldurunuz. Eksik sayısı: ' + emptyRows);
+            return false; // Formu gönderme
+        } else {
+            return true; // Formu gönderme
+        }
     }
 
     // Form gönderme olayını dinleme
@@ -129,6 +133,7 @@
         }
     });
 </script>
+
 
 
 {% endblock  %}
