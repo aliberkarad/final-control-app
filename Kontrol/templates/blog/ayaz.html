@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container-lg d-grid gap-2 col-12 mt-3">
-    <h1>Kontrol Bölümleri</h1>
+    <h3>{{ayaz.chassis}} - {{ayaz.model|title}}</h3>
     <form method="POST">
         {% csrf_token %}
         <input type="hidden" value="{{ ayaz.chassis }}" name="chassis"></input>
@@ -28,10 +28,10 @@
                                 {% for item in ayaz_tum_isler %}
                                     {% if item.bolum == bolum %}
                                     <tr>
-                                        <td>{{ item }}</td>
+                                        <td>{{ item.is_bilgisi }}</td>
                                         <td>
-                                            <select aria-label="Durum" class="form-select form-select-sm" name="isler">
-                                                <option value="" selected>Seçiniz</option>
+                                            <select aria-label="Durum" class="form-select form-select-sm" name="{{item.is_bilgisi|slugify}}">
+                                                
                                                 <option value="KALDI">KALDI</option>
                                                 <option value="GEÇTİ">GEÇTİ</option>
                                             </select>

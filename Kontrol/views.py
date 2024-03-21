@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate,logout
 from django.contrib.auth import login as user_login
 from django.contrib import messages
+from django.utils.text import slugify
 
 # Create your views here.
 def login(request):
@@ -78,9 +79,17 @@ def home(request):
         model = request.POST.get('model')
         chassis = request.POST.get('chassis').upper()
 
-        ayaz = KontrolClass.objects.create(date=my_datetime_aware,model=model,chassis=chassis)
 
+        
         if model in ayaz_models:
+            ayaz = KontrolClass.objects.create(date=my_datetime_aware,model=model,chassis=chassis)
+            # Ayaz için geçerli işler alınır
+            tum_isler = AyazIsler.objects.all()
+            # İş bölümleri için liste oluşturulur
+            for is_bilgisi in tum_isler:
+                # Ayaz için geçerli işler karavana atanır
+                KaravanIs.objects.create(karavan=ayaz,is_bilgisi=is_bilgisi)
+
             return redirect('ayaz')
 
         if model in arkut_models:
@@ -105,25 +114,32 @@ def ayaz(request):
         return redirect('login')
     
     if request.method == "GET":
-        ayaz = KontrolClass.objects.latest('id')
+        # Son oluşturulan karavan alınır
+        ayaz = KontrolClass.objects.latest('id')         
+        # Ayaz için geçerli işler alınır
         tum_isler = AyazIsler.objects.all()
+        # İş bölümleri için liste oluşturulur
         tum_isler_bolum = []
         for is_bilgisi in tum_isler:
+            # Ayaz için iş bölümleri tek olarak alınır
             if is_bilgisi.bolum not in tum_isler_bolum:
                 tum_isler_bolum.append(is_bilgisi.bolum)
-            KaravanIs.objects.create(karavan=ayaz,is_bilgisi=is_bilgisi)
 
     if request.method == "POST":
+        # ayaz şasi bilgisi çekilir
         chassis = request.POST.get('chassis')
+        # ayaz iş bilgileri sayfadan liste olarak çekilir
         is_bilgileri_values = request.POST.getlist('isler')
-
+        # şasi bilgisi alınan karavan çekilir
         karavan = KontrolClass.objects.get(chassis=chassis)
+        # çekilen karavana ait işler alınır
         karavan_isleri = KaravanIs.objects.filter(karavan=karavan)
-
         # Her bir işin tamamlandı durumunu güncelle
-        for karavan_is, is_bilgi_value in zip(karavan_isleri, is_bilgileri_values):
-            karavan_is.tamamlandi_mi = is_bilgi_value
+        for karavan_is in karavan_isleri:
+            karavan_is.tamamlandi_mi = request.POST.get(slugify(karavan_is.is_bilgisi.is_bilgisi))
             karavan_is.save()
+
+        # kayıt sonrası ana sayfaya dönülür
         return redirect('home')
 
     return render(request,"blog/ayaz.html",{
